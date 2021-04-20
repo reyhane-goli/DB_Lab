@@ -1,7 +1,7 @@
 import { Body, Delete, Injectable, Put, Query } from '@nestjs/common';
 import CreateGenreDto from './dto/create-genre.dto';
 import GenreEntity from '../db/genre.entity';
-import { ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiResponse,ApiBearerAuth,ApiQuery } from '@nestjs/swagger';
 import UpdateGenreDto from './dto/update-genre.dto';
 
 @Injectable()

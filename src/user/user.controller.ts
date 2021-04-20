@@ -1,10 +1,11 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { UserServices } from './user.service';
+import { UserService } from './user.service';
 import CreateUserDto from './dto/create-user.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly usersServices: UserServices) {}
+  constructor(private readonly usersServices: UserService) {}
 
 //'postUser()' will handle the creating of new User
   @Post('post')
@@ -12,6 +13,7 @@ export class UserController {
     return this.usersServices.insert(user);
   }
 // 'getAll()' returns the list of all the existing users in the database
+  @ApiBearerAuth()
   @Get()
   getAll() {
     return this.usersServices.getAllUsers();
@@ -19,6 +21,7 @@ export class UserController {
 
 //'getBooks()' return all the books which are associated with the user 
 // provided through 'userID' by the request  
+@ApiBearerAuth()
   @Get('books')
   getBooks( @Body('userID', ParseIntPipe) userID: number ) {
     return this.usersServices.getBooksOfUser(userID);
